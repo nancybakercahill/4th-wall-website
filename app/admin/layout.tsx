@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { createClient } from '../../lib/supabase/server';
+import { isSupabaseConfigured } from '../../lib/queries';
 import { signOut } from './actions';
 
 export const metadata = { title: 'Admin' };
@@ -11,6 +12,21 @@ const NAV = [
 ];
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  // Show a setup notice instead of crashing before Supabase keys are added.
+  if (!isSupabaseConfigured()) {
+    return (
+      <div className="flex min-h-screen items-center justify-center px-5">
+        <div className="max-w-md text-center">
+          <h1 className="text-xl font-semibold">Admin not configured yet</h1>
+          <p className="mt-3 text-sm text-ink/60">
+            Add your Supabase keys to <code className="rounded bg-ink/10 px-1">.env.local</code> and
+            restart the dev server to enable the admin. See the README for setup steps.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   const supabase = await createClient();
   const {
     data: { user },
