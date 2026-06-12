@@ -31,7 +31,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-paper px-5">
       <form onSubmit={handleSubmit} className="w-full max-w-sm">
         <h1 className="text-2xl font-semibold tracking-tight">
-          4th Wall <span className="font-mono text-sm text-ink/50">admin</span>
+          4th Wall <span className="font-display text-sm text-ink/50">admin</span>
         </h1>
         <p className="mt-2 text-sm text-ink/60">Sign in to manage your projects.</p>
 

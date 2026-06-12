@@ -26,7 +26,7 @@ export default async function AdminProjectsPage() {
 
       <div className="mt-8 overflow-hidden rounded-lg border border-ink/10 bg-white">
         <table className="w-full text-sm">
-          <thead className="border-b border-ink/10 text-left font-mono text-xs uppercase tracking-widest text-ink/50">
+          <thead className="border-b border-ink/10 text-left font-display text-xs uppercase tracking-widest text-ink/50">
             <tr>
               <th className="px-4 py-3">Title</th>
               <th className="px-4 py-3">Category</th>

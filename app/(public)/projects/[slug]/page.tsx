@@ -49,7 +49,7 @@ export default async function ProjectPage({
     <article className="container-page py-12">
       <Link
         href={cat ? `/${cat.slug}` : '/'}
-        className="font-mono text-xs uppercase tracking-widest text-ink/50 hover:text-accent"
+        className="font-display text-xs uppercase tracking-widest text-ink/50 hover:text-accent"
       >
         ← {cat?.label ?? 'Back'}
       </Link>
@@ -59,7 +59,7 @@ export default async function ProjectPage({
         {project.subtitle && (
           <p className="mt-4 text-xl text-ink/70">{project.subtitle}</p>
         )}
-        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs uppercase tracking-widest text-ink/50">
+        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-display text-xs uppercase tracking-widest text-ink/50">
           {project.year && <span>{project.year}</span>}
           {project.location && <span>{project.location}</span>}
           {cat && <span>{cat.label}</span>}
@@ -81,7 +81,7 @@ export default async function ProjectPage({
               className="whitespace-pre-wrap text-lg leading-relaxed text-ink/85"
             />
           ) : (
-            <p className="font-mono text-sm text-ink/40">Description coming soon.</p>
+            <p className="font-display text-sm text-ink/40">Description coming soon.</p>
           )}
         </div>
 

@@ -27,10 +27,10 @@ export default async function TalksPage() {
                 )}
               </h2>
               {t.talk_date && (
-                <span className="font-mono text-xs text-ink/50">{t.talk_date}</span>
+                <span className="font-display text-xs text-ink/50">{t.talk_date}</span>
               )}
             </div>
-            {t.event && <p className="mt-1 font-mono text-xs uppercase tracking-widest text-ink/50">{t.event}</p>}
+            {t.event && <p className="mt-1 font-display text-xs uppercase tracking-widest text-ink/50">{t.event}</p>}
             {t.description && <p className="mt-3 text-sm text-ink/70">{t.description}</p>}
           </div>
         ))}

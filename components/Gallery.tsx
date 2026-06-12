@@ -65,7 +65,7 @@ export default function Gallery({ items }: { items: GalleryItem[] }) {
               </button>
             )}
             {m.caption && (
-              <figcaption className="px-4 py-3 font-mono text-xs text-ink/50">{m.caption}</figcaption>
+              <figcaption className="px-4 py-3 font-display text-xs text-ink/50">{m.caption}</figcaption>
             )}
           </figure>
         ))}
@@ -79,7 +79,7 @@ export default function Gallery({ items }: { items: GalleryItem[] }) {
           aria-modal="true"
         >
           <button
-            className="absolute right-4 top-4 font-mono text-xs uppercase tracking-widest text-paper/80 hover:text-accent"
+            className="absolute right-4 top-4 font-display text-xs uppercase tracking-widest text-paper/80 hover:text-accent"
             onClick={close}
           >
             Close ✕
@@ -116,7 +116,7 @@ export default function Gallery({ items }: { items: GalleryItem[] }) {
             onClick={(e) => e.stopPropagation()}
           />
           {open.caption && (
-            <p className="mt-4 max-w-2xl text-center font-mono text-xs text-paper/70">{open.caption}</p>
+            <p className="mt-4 max-w-2xl text-center font-display text-xs text-paper/70">{open.caption}</p>
           )}
         </div>
       )}

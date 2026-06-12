@@ -30,13 +30,13 @@ export default async function EditProjectPage({
   return (
     <div>
       <div className="flex items-center justify-between">
-        <Link href="/admin/projects" className="font-mono text-xs uppercase tracking-widest text-ink/50 hover:text-accent">
+        <Link href="/admin/projects" className="font-display text-xs uppercase tracking-widest text-ink/50 hover:text-accent">
           ← Projects
         </Link>
         <Link
           href={`/projects/${(project as Project).slug}`}
           target="_blank"
-          className="font-mono text-xs uppercase tracking-widest text-ink/50 hover:text-accent"
+          className="font-display text-xs uppercase tracking-widest text-ink/50 hover:text-accent"
         >
           View ↗
         </Link>

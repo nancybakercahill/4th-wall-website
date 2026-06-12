@@ -8,17 +8,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: '#0a0a0a',
-        paper: '#f6f5f1',
-        accent: '#ff3b1d',
+        // Monochrome brand palette (black & white).
+        ink: '#141414',
+        paper: '#ffffff',
+        // Kept for backward-compat; resolves to the brand black so any
+        // legacy `accent` utility renders monochrome.
+        accent: '#141414',
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-mono)', 'ui-monospace', 'monospace'],
+        display: ['var(--font-display)', 'var(--font-sans)', 'system-ui', 'sans-serif'],
       },
       maxWidth: {
-        page: '1400px',
+        page: '1500px',
       },
+      letterspacing: {},
     },
   },
   plugins: [],

@@ -22,7 +22,7 @@ export default async function PressPage() {
                   className="flex flex-wrap items-baseline justify-between gap-2 hover:text-accent"
                 >
                   <span className="text-lg font-medium">{p.title}</span>
-                  <span className="font-mono text-xs uppercase tracking-widest text-ink/50">
+                  <span className="font-display text-xs uppercase tracking-widest text-ink/50">
                     {p.outlet}
                     {p.published_on ? ` · ${p.published_on}` : ''}
                   </span>

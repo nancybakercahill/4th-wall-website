@@ -41,7 +41,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="container-page flex items-center justify-between py-3">
           <div className="flex items-center gap-6">
             <Link href="/admin" className="font-semibold">
-              4th Wall <span className="font-mono text-xs text-ink/50">admin</span>
+              4th Wall <span className="font-display text-xs text-ink/50">admin</span>
             </Link>
             <nav className="flex items-center gap-4 text-sm">
               {NAV.map((n) => (
@@ -56,7 +56,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               View site ↗
             </Link>
             <form action={signOut}>
-              <button className="font-mono text-xs uppercase tracking-widest text-ink/60 hover:text-accent">
+              <button className="font-display text-xs uppercase tracking-widest text-ink/60 hover:text-accent">
                 Sign out
               </button>
             </form>

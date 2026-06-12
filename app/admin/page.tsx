@@ -18,15 +18,15 @@ export default async function AdminDashboard() {
 
       <div className="mt-8 grid gap-4 sm:grid-cols-3">
         <div className="rounded-lg border border-ink/10 bg-white p-6">
-          <p className="font-mono text-xs uppercase tracking-widest text-ink/50">Projects</p>
+          <p className="font-display text-xs uppercase tracking-widest text-ink/50">Projects</p>
           <p className="mt-2 text-3xl font-semibold">{total ?? 0}</p>
         </div>
         <div className="rounded-lg border border-ink/10 bg-white p-6">
-          <p className="font-mono text-xs uppercase tracking-widest text-ink/50">Published</p>
+          <p className="font-display text-xs uppercase tracking-widest text-ink/50">Published</p>
           <p className="mt-2 text-3xl font-semibold">{published ?? 0}</p>
         </div>
         <div className="rounded-lg border border-ink/10 bg-white p-6">
-          <p className="font-mono text-xs uppercase tracking-widest text-ink/50">Drafts</p>
+          <p className="font-display text-xs uppercase tracking-widest text-ink/50">Drafts</p>
           <p className="mt-2 text-3xl font-semibold">{(total ?? 0) - (published ?? 0)}</p>
         </div>
       </div>

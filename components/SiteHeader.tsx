@@ -23,8 +23,8 @@ export default function SiteHeader() {
         key={href}
         href={href}
         onClick={() => setOpen(false)}
-        className={`transition-colors hover:text-accent ${
-          active ? 'text-accent' : 'text-ink'
+        className={`font-display text-xs uppercase tracking-[0.15em] transition-opacity hover:opacity-100 ${
+          active ? 'opacity-100 underline underline-offset-4' : 'opacity-60'
         }`}
       >
         {label}
@@ -33,20 +33,24 @@ export default function SiteHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ink/10 bg-paper/85 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-ink bg-paper">
+      {/* signature brick strip */}
+      <div className="wall-band h-2 w-full" aria-hidden />
+
       <div className="container-page flex items-center justify-between py-4">
-        <Link href="/" className="text-lg font-semibold tracking-tight" onClick={() => setOpen(false)}>
-          4th Wall<span className="text-accent">.</span>
+        <Link href="/" onClick={() => setOpen(false)} aria-label="4th Wall — home">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/logo-stacked.png" alt="4th Wall" className="h-11 w-auto" />
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
+        <nav className="hidden items-center gap-6 md:flex">
           {CATEGORIES.map((c) => navLink(`/${c.slug}`, c.label))}
-          <span className="h-4 w-px bg-ink/15" />
+          <span className="h-3 w-px bg-ink/25" />
           {SECONDARY.map((s) => navLink(s.href, s.label))}
         </nav>
 
         <button
-          className="md:hidden font-mono text-xs uppercase tracking-widest"
+          className="font-display text-xs uppercase tracking-[0.15em] md:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label="Toggle menu"
@@ -56,9 +60,9 @@ export default function SiteHeader() {
       </div>
 
       {open && (
-        <nav className="container-page flex flex-col gap-3 pb-5 text-base font-medium md:hidden">
+        <nav className="container-page flex flex-col gap-4 pb-6 md:hidden">
           {CATEGORIES.map((c) => navLink(`/${c.slug}`, c.label))}
-          <span className="my-1 h-px w-full bg-ink/10" />
+          <span className="my-1 h-px w-full bg-ink/15" />
           {SECONDARY.map((s) => navLink(s.href, s.label))}
         </nav>
       )}

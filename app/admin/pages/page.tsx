@@ -35,7 +35,7 @@ export default async function AdminPagesPage({
           const page = byKey(key);
           return (
             <form key={key} action={savePage.bind(null, key)} className="rounded-lg border border-ink/10 bg-white p-6">
-              <p className="font-mono text-xs uppercase tracking-widest text-ink/50">{label} page</p>
+              <p className="font-display text-xs uppercase tracking-widest text-ink/50">{label} page</p>
               <div className="mt-4">
                 <label className="block text-sm font-medium">Heading</label>
                 <input name="title" defaultValue={page?.title ?? label} className={input} />

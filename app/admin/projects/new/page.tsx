@@ -5,7 +5,7 @@ import { createProject } from '../../actions';
 export default function NewProjectPage() {
   return (
     <div>
-      <Link href="/admin/projects" className="font-mono text-xs uppercase tracking-widest text-ink/50 hover:text-accent">
+      <Link href="/admin/projects" className="font-display text-xs uppercase tracking-widest text-ink/50 hover:text-accent">
         ← Projects
       </Link>
       <h1 className="mt-4 text-2xl font-semibold tracking-tight">New project</h1>

@@ -4,7 +4,7 @@
 
 :root {
   --font-sans: 'Inter', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-display: 'Space Grotesk', var(--font-sans);
 }
 
 @layer base {
@@ -15,7 +15,10 @@
     @apply bg-paper text-ink antialiased;
   }
   ::selection {
-    @apply bg-accent text-white;
+    @apply bg-ink text-paper;
+  }
+  h1, h2, h3 {
+    @apply font-display;
   }
 }
 
@@ -23,8 +26,23 @@
   .container-page {
     @apply mx-auto w-full max-w-page px-5 sm:px-8;
   }
-  /* Eyebrow / label text used throughout the editorial layout */
+  /* Eyebrow / label text — tracked, uppercase, set in the display face */
   .eyebrow {
-    @apply font-mono text-xs uppercase tracking-[0.2em] text-ink/60;
+    @apply font-display text-xs font-medium uppercase tracking-[0.22em] text-ink/55;
+  }
+  /* Signature brick-pattern band (repeats horizontally). */
+  .wall-band {
+    background-image: url('/brand/pattern.png');
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: auto 100%;
+  }
+  /* Inverted (white) brick band for dark sections. */
+  .wall-band-invert {
+    background-image: url('/brand/pattern.png');
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: auto 100%;
+    filter: invert(1);
   }
 }
