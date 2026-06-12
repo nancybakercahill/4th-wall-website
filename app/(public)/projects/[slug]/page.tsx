@@ -4,6 +4,8 @@ import type { Metadata } from 'next';
 import { getProjectBySlug } from '../../../../lib/queries';
 import { categoryByValue } from '../../../../lib/categories';
 import { mediaUrl } from '../../../../lib/media';
+import Linkify from '../../../../components/Linkify';
+import Gallery, { type GalleryItem } from '../../../../components/Gallery';
 
 export async function generateMetadata({
   params,
@@ -31,6 +33,17 @@ export default async function ProjectPage({
   const { project, media, press } = data;
   const cat = categoryByValue(project.category);
   const cover = mediaUrl(project.cover_image_path);
+
+  const galleryItems: GalleryItem[] = media
+    .filter((m) => m.kind === 'image' || m.kind === 'video')
+    .map((m) => ({
+      id: m.id,
+      kind: m.kind,
+      src: mediaUrl(m.storage_path) ?? m.url ?? '',
+      caption: m.caption,
+      alt: m.alt_text ?? project.title,
+    }))
+    .filter((m) => m.src);
 
   return (
     <article className="container-page py-12">
@@ -63,9 +76,10 @@ export default async function ProjectPage({
       <div className="mt-12 grid gap-12 lg:grid-cols-[2fr_1fr]">
         <div className="space-y-6">
           {project.description ? (
-            <div className="whitespace-pre-wrap text-lg leading-relaxed text-ink/85">
-              {project.description}
-            </div>
+            <Linkify
+              text={project.description}
+              className="whitespace-pre-wrap text-lg leading-relaxed text-ink/85"
+            />
           ) : (
             <p className="font-mono text-sm text-ink/40">Description coming soon.</p>
           )}
@@ -96,29 +110,11 @@ export default async function ProjectPage({
         </aside>
       </div>
 
-      {/* Media gallery */}
-      {media.filter((m) => m.kind === 'image').length > 0 && (
+      {/* Media gallery — images open in a lightbox, videos play inline */}
+      {galleryItems.length > 0 && (
         <section className="mt-16">
           <p className="eyebrow mb-5">Gallery</p>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {media
-              .filter((m) => m.kind === 'image')
-              .map((m) => {
-                const url = mediaUrl(m.storage_path) ?? m.url;
-                if (!url) return null;
-                return (
-                  <figure key={m.id} className="overflow-hidden rounded-lg bg-ink/5">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={url} alt={m.alt_text ?? project.title} className="w-full object-cover" />
-                    {m.caption && (
-                      <figcaption className="px-4 py-3 font-mono text-xs text-ink/50">
-                        {m.caption}
-                      </figcaption>
-                    )}
-                  </figure>
-                );
-              })}
-          </div>
+          <Gallery items={galleryItems} />
         </section>
       )}
     </article>

@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
-import type { ProjectMedia } from '../../lib/types';
+import type { ProjectMedia, MediaKind } from '../../lib/types';
 import { mediaUrl } from '../../lib/media';
 import { addMedia, deleteMedia } from '../../app/admin/actions';
 import ImageUpload from './ImageUpload';
@@ -18,9 +18,9 @@ export default function MediaManager({
   const [isPending, startTransition] = useTransition();
   const [busy, setBusy] = useState(false);
 
-  async function handleUploaded(path: string) {
+  async function handleUploaded(path: string, kind: MediaKind) {
     setBusy(true);
-    await addMedia(projectId, { storage_path: path, kind: 'image' });
+    await addMedia(projectId, { storage_path: path, kind });
     setBusy(false);
     router.refresh();
   }
@@ -32,38 +32,47 @@ export default function MediaManager({
     });
   }
 
-  const images = media.filter((m) => m.kind === 'image');
+  // Show all images and videos in upload order.
+  const items = media.filter((m) => m.kind === 'image' || m.kind === 'video');
 
   return (
     <div>
       <h2 className="text-lg font-semibold">Gallery</h2>
       <p className="mt-1 text-sm text-ink/60">
-        Add as many images as you like. {busy ? 'Saving…' : ''}
+        Add as many images or videos as you like. {busy ? 'Saving…' : ''}
       </p>
 
       <div className="mt-4 max-w-md">
-        <ImageUpload folder={projectId} onUploaded={handleUploaded} label="Add gallery image" />
+        <ImageUpload
+          folder={projectId}
+          onUploaded={handleUploaded}
+          label="Add image or video"
+          accept="image/*,video/*"
+        />
       </div>
 
-      {images.length > 0 && (
+      {items.length > 0 && (
         <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
-          {images.map((m) => (
-            <div key={m.id} className="group relative overflow-hidden rounded-lg border border-ink/10 bg-white">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={mediaUrl(m.storage_path) ?? m.url ?? ''}
-                alt={m.alt_text ?? ''}
-                className="aspect-square w-full object-cover"
-              />
-              <button
-                onClick={() => handleDelete(m.id)}
-                disabled={isPending}
-                className="absolute right-2 top-2 rounded-md bg-white/90 px-2 py-1 text-xs font-medium text-accent opacity-0 shadow transition-opacity group-hover:opacity-100 disabled:opacity-50"
-              >
-                Delete
-              </button>
-            </div>
-          ))}
+          {items.map((m) => {
+            const src = mediaUrl(m.storage_path) ?? m.url ?? '';
+            return (
+              <div key={m.id} className="group relative overflow-hidden rounded-lg border border-ink/10 bg-white">
+                {m.kind === 'video' ? (
+                  <video src={src} controls className="aspect-square w-full object-cover" />
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={src} alt={m.alt_text ?? ''} className="aspect-square w-full object-cover" />
+                )}
+                <button
+                  onClick={() => handleDelete(m.id)}
+                  disabled={isPending}
+                  className="absolute right-2 top-2 rounded-md bg-white/90 px-2 py-1 text-xs font-medium text-accent opacity-0 shadow transition-opacity group-hover:opacity-100 disabled:opacity-50"
+                >
+                  Delete
+                </button>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

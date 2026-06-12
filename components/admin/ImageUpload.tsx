@@ -3,22 +3,33 @@
 import { useState, useCallback } from 'react';
 import { createClient } from '../../lib/supabase/client';
 import { mediaUrl } from '../../lib/media';
+import type { MediaKind } from '../../lib/types';
 
 interface Props {
   // Folder prefix inside the `media` bucket, e.g. "covers" or a project id.
   folder: string;
-  // Called with the storage path after a successful upload.
-  onUploaded: (path: string) => void;
+  // Called with the storage path (and detected kind) after a successful upload.
+  onUploaded: (path: string, kind: MediaKind) => void;
   // Optional current image path to preview.
   current?: string | null;
   label?: string;
+  // What file types to accept. Default: images only. Pass 'image/*,video/*' for galleries.
+  accept?: string;
 }
 
-export default function ImageUpload({ folder, onUploaded, current, label = 'Image' }: Props) {
+export default function ImageUpload({
+  folder,
+  onUploaded,
+  current,
+  label = 'Image',
+  accept = 'image/*',
+}: Props) {
   const [preview, setPreview] = useState<string | null>(mediaUrl(current));
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
+
+  const allowsVideo = accept.includes('video');
 
   const upload = useCallback(
     async (file: File) => {
@@ -32,8 +43,10 @@ export default function ImageUpload({ folder, onUploaded, current, label = 'Imag
           .from('media')
           .upload(path, file, { cacheControl: '3600', upsert: false });
         if (error) throw error;
-        setPreview(mediaUrl(path));
-        onUploaded(path);
+        const kind: MediaKind = file.type.startsWith('video') ? 'video' : 'image';
+        // Only images get an inline preview here; videos show up in the list after refresh.
+        if (kind === 'image') setPreview(mediaUrl(path));
+        onUploaded(path, kind);
       } catch (e) {
         setError(e instanceof Error ? e.message : 'Upload failed');
       } finally {
@@ -67,13 +80,15 @@ export default function ImageUpload({ folder, onUploaded, current, label = 'Imag
           <img src={preview} alt="" className="mb-3 max-h-40 rounded object-contain" />
         )}
         <p className="text-sm text-ink/60">
-          {uploading ? 'Uploading…' : 'Drag an image here, or'}
+          {uploading
+            ? 'Uploading…'
+            : `Drag ${allowsVideo ? 'an image or video' : 'an image'} here, or`}
         </p>
         <label className="mt-2 cursor-pointer rounded-md border border-ink/20 px-3 py-1.5 text-xs font-medium hover:border-accent hover:text-accent">
           Choose file
           <input
             type="file"
-            accept="image/*"
+            accept={accept}
             className="hidden"
             onChange={(e) => {
               const file = e.target.files?.[0];
