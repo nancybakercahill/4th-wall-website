@@ -2,15 +2,14 @@ import React from 'react';
 
 // Renders plain text, turning bare URLs into clickable links and preserving line breaks.
 // Server component — no interactivity, safe for static rendering.
-const URL_RE = /(https?:\/\/[^\s]+)/g;
-
 export default function Linkify({ text, className }: { text: string; className?: string }) {
+  // Local regex (fresh per call) — avoids mutating shared state across renders.
+  const re = /(https?:\/\/[^\s]+)/g;
   const nodes: React.ReactNode[] = [];
   let last = 0;
   let m: RegExpExecArray | null;
   let i = 0;
-  URL_RE.lastIndex = 0;
-  while ((m = URL_RE.exec(text)) !== null) {
+  while ((m = re.exec(text)) !== null) {
     if (m.index > last) nodes.push(text.slice(last, m.index));
     // Trim trailing punctuation that shouldn't be part of the link.
     let url = m[0];

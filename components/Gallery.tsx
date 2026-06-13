@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 
 export interface GalleryItem {
   id: string;
@@ -13,7 +13,7 @@ export interface GalleryItem {
 // Project media grid. Images open in a simple click-to-enlarge lightbox;
 // videos play inline. Deliberately minimal interactivity.
 export default function Gallery({ items }: { items: GalleryItem[] }) {
-  const images = items.filter((m) => m.kind === 'image');
+  const images = useMemo(() => items.filter((m) => m.kind === 'image'), [items]);
   const [openId, setOpenId] = useState<string | null>(null);
 
   const openIndex = images.findIndex((m) => m.id === openId);
