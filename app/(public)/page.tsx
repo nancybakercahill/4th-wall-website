@@ -9,47 +9,73 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="container-page pt-16 pb-14 sm:pt-24 sm:pb-20">
-        <p className="eyebrow">Free · Augmented Reality · Public Art</p>
-        <h1 className="mt-5 max-w-5xl font-display text-5xl font-medium leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl">
-          Digital artworks placed in the physical world.
-        </h1>
-        <p className="mt-7 max-w-2xl text-lg text-ink/70">
-          4th Wall is a free augmented reality app by Nancy Baker Cahill. Explore every
-          project — past, present, and upcoming through 2026.
-        </p>
-        <div className="mt-9 flex flex-wrap gap-3">
-          <Link
-            href="/public-art"
-            className="border border-ink bg-ink px-7 py-3 text-sm font-medium uppercase tracking-wider text-paper transition-colors hover:bg-paper hover:text-ink"
-          >
-            Explore projects
-          </Link>
-          <Link
-            href="/how-to-use"
-            className="border border-ink px-7 py-3 text-sm font-medium uppercase tracking-wider transition-colors hover:bg-ink hover:text-paper"
-          >
-            How to use the app
-          </Link>
+      {/* Hero — cyberpunk magenta block with CENTO artwork behind the type */}
+      <section className="relative overflow-hidden bg-pink text-ink">
+        {/* CENTO scene — full colour, zoomed + nudged right (no cutout needed) */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/brand/cento-scene.jpg"
+          alt=""
+          aria-hidden
+          style={{ transform: 'scale(1.2) translateX(6%)' }}
+          className="pointer-events-none absolute inset-0 h-full w-full select-none object-cover"
+        />
+        {/* light magenta tint — lower-intensity duotone */}
+        <div className="pointer-events-none absolute inset-0 bg-pink/35 mix-blend-multiply" aria-hidden />
+        {/* legibility scrim: solid magenta on the left, clearing toward the creature */}
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-pink via-pink/45 to-transparent"
+          aria-hidden
+        />
+        <div className="scanlines pointer-events-none absolute inset-0" aria-hidden />
+        {/* light-flare sweep */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+          <div className="flare absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
         </div>
+        <div className="container-page relative pt-16 pb-16 sm:pt-24 sm:pb-24">
+          <p className="tag text-ink text-sm font-bold tracking-[0.25em] sm:text-base">[ free // augmented reality // public art ]</p>
+          <h1 className="glitch glitch-anim mt-6 max-w-5xl font-display text-5xl font-semibold lowercase leading-[0.95] tracking-tight sm:text-7xl lg:text-[5.5rem]">
+            interactive digital artworks living in the physical world
+          </h1>
+          <p className="mt-8 max-w-2xl text-xl font-medium text-white sm:text-2xl">
+            4th Wall is a free augmented reality app by artist Nancy Baker Cahill. Explore every
+            project — past, present, and upcoming through 2026
+          </p>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Link
+              href="/public-art"
+              className="border border-ink bg-ink px-7 py-3 text-sm font-medium uppercase tracking-wider text-neon transition-colors hover:bg-neon hover:text-ink"
+            >
+              ▶ Explore projects
+            </Link>
+            <Link
+              href="/how-to-use"
+              className="border border-ink px-7 py-3 text-sm font-medium uppercase tracking-wider transition-colors hover:bg-ink hover:text-neon"
+            >
+              How to use the app
+            </Link>
+          </div>
+        </div>
+        {/* glowing neon-yellow line */}
+        <div className="neon-line h-2.5 w-full" aria-hidden />
       </section>
-
-      {/* Brick pattern divider */}
-      <div className="wall-band h-3 w-full" aria-hidden />
 
       {/* Category browser */}
       <section className="container-page py-14">
         <div className="grid grid-cols-1 border-l border-t border-ink sm:grid-cols-2 lg:grid-cols-4">
-          {CATEGORIES.map((c) => (
+          {CATEGORIES.map((c, i) => (
             <Link
               key={c.slug}
               href={`/${c.slug}`}
-              className="group border-b border-r border-ink p-7 transition-colors hover:bg-ink hover:text-paper"
+              className={`group border-b border-r border-ink p-7 transition-colors hover:text-ink ${
+                i < 2 ? 'hover:bg-neon' : 'hover:bg-acid'
+              }`}
             >
               <p className="font-display text-xs uppercase tracking-[0.18em]">{c.label}</p>
-              <p className="mt-4 text-sm text-ink/65 group-hover:text-paper/70">{c.blurb}</p>
-              <span className="mt-6 inline-block text-sm">View →</span>
+              <p className="mt-4 text-sm text-ink/65 group-hover:text-ink/75">{c.blurb}</p>
+              <span className="mt-6 inline-block text-sm">
+                {i < 2 ? 'neon yellow' : 'acid green'} · View →
+              </span>
             </Link>
           ))}
         </div>

@@ -100,7 +100,7 @@ export async function getPress(): Promise<Press[]> {
     const { data } = await supabase
       .from('press')
       .select('*')
-      .order('published_on', { ascending: false });
+      .order('published_on', { ascending: false, nullsFirst: false });
     return (data as Press[]) ?? [];
   } catch {
     return [];
