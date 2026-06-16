@@ -111,6 +111,27 @@ export async function savePage(key: string, formData: FormData) {
   redirect('/admin/pages?saved=1');
 }
 
+// Editable hero copy + category blurbs (key/value site_settings).
+export async function saveSettings(formData: FormData) {
+  const supabase = await createClient();
+  const keys = [
+    'hero_tag',
+    'hero_headline',
+    'hero_intro',
+    'blurb_public_art',
+    'blurb_guest_ar',
+    'blurb_coordinates',
+    'blurb_archive',
+  ];
+  const rows = keys.map((key) => ({ key, value: str(formData.get(key)) ?? '' }));
+  const { error } = await supabase.from('site_settings').upsert(rows);
+  if (error) throw new Error(error.message);
+  ['/', '/public-art', '/guest-ar', '/coordinates', '/archive'].forEach((p) =>
+    revalidatePath(p)
+  );
+  redirect('/admin/home?saved=1');
+}
+
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();

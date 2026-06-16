@@ -8,6 +8,7 @@ export const metadata = { title: 'Admin' };
 const NAV = [
   { href: '/admin', label: 'Dashboard' },
   { href: '/admin/projects', label: 'Projects' },
+  { href: '/admin/home', label: 'Home & Hero' },
   { href: '/admin/pages', label: 'Pages' },
 ];
 

@@ -93,6 +93,23 @@ export async function getTalks(): Promise<Talk[]> {
   }
 }
 
+// Editable site copy (hero text, category blurbs). Returns a key→value map;
+// empty when unconfigured so pages fall back to their built-in defaults.
+export async function getSettings(): Promise<Record<string, string>> {
+  if (!isSupabaseConfigured()) return {};
+  try {
+    const supabase = await db();
+    const { data } = await supabase.from('site_settings').select('key, value');
+    const map: Record<string, string> = {};
+    (data ?? []).forEach((r: { key: string; value: string | null }) => {
+      if (r.value != null) map[r.key] = r.value;
+    });
+    return map;
+  } catch {
+    return {};
+  }
+}
+
 export async function getPress(): Promise<Press[]> {
   if (!isSupabaseConfigured()) return [];
   try {
