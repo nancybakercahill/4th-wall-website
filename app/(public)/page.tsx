@@ -22,7 +22,7 @@ export default async function HomePage() {
         {/* CENTO scene — full colour, zoomed + nudged right (no cutout needed) */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/brand/BEST_CENTO_April1.png"
+          src="/brand/cento-scene.jpg"
           alt=""
           aria-hidden
           style={{ transform: 'scale(1.2) translateX(6%)' }}
