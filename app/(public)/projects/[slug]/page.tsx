@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { getProjectBySlug } from '../../../../lib/queries';
 import { categoryByValue } from '../../../../lib/categories';
 import { mediaUrl } from '../../../../lib/media';
-import Linkify from '../../../../components/Linkify';
+import { renderRichText } from '../../../../components/RichText';
 import Gallery, { type GalleryItem } from '../../../../components/Gallery';
 
 export async function generateMetadata({
@@ -76,10 +76,9 @@ export default async function ProjectPage({
       <div className="mt-12 grid gap-12 lg:grid-cols-[2fr_1fr]">
         <div className="space-y-6">
           {project.description ? (
-            <Linkify
-              text={project.description}
-              className="whitespace-pre-wrap text-lg leading-relaxed text-ink/85"
-            />
+            <div className="whitespace-pre-wrap text-lg leading-relaxed text-ink/85">
+              {renderRichText(project.description)}
+            </div>
           ) : (
             <p className="font-display text-sm text-ink/40">Description coming soon.</p>
           )}
@@ -89,7 +88,7 @@ export default async function ProjectPage({
           {project.credits && (
             <div>
               <p className="eyebrow">Credits</p>
-              <p className="mt-3 whitespace-pre-wrap text-sm text-ink/70">{project.credits}</p>
+              <p className="mt-3 whitespace-pre-wrap text-sm text-ink/70">{renderRichText(project.credits)}</p>
             </div>
           )}
           {press.length > 0 && (

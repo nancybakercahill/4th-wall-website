@@ -1,4 +1,5 @@
 import { getPage } from '../../../lib/queries';
+import { renderRichText } from '../../../components/RichText';
 
 export const metadata = { title: 'How To Use' };
 
@@ -41,7 +42,7 @@ export default async function HowToUsePage() {
               <ul className={listClass}>
                 {steps.map((s, i) => (
                   <li key={i}>
-                    <span className={itemClass}>{s}</span>
+                    <span className={itemClass}>{renderRichText(s)}</span>
                   </li>
                 ))}
               </ul>
@@ -55,7 +56,7 @@ export default async function HowToUsePage() {
                 <ul className={listClass}>
                   {trouble.map((s, i) => (
                     <li key={i}>
-                      <span className={itemClass}>{s}</span>
+                      <span className={itemClass}>{renderRichText(s)}</span>
                     </li>
                   ))}
                 </ul>
