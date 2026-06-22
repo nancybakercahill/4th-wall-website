@@ -1,4 +1,5 @@
 import { getPage } from '../../../lib/queries';
+import { renderRichText } from '../../../components/RichText';
 
 export const metadata = { title: 'About' };
 
@@ -12,7 +13,7 @@ export default async function AboutPage() {
           {page?.title ?? 'About'}
         </h1>
         <div className="mt-8 whitespace-pre-wrap text-lg leading-relaxed text-acid">
-          {page?.body ?? 'Edit this page from the admin.'}
+          {renderRichText(page?.body ?? 'Edit this page from the admin.')}
         </div>
       </div>
     </div>

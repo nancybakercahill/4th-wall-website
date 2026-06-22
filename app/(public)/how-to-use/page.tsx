@@ -6,7 +6,9 @@ export const metadata = { title: 'How To Use' };
 // "— Troubleshooting —" section, each as a list of paragraph items.
 function parseBody(body: string | null): { steps: string[]; trouble: string[] } {
   if (!body) return { steps: [], trouble: [] };
-  const [main, tail] = body.split(/—\s*Troubleshooting\s*—/i);
+  // Normalise Windows (\r\n) and lone-\r line endings so blank-line splitting works.
+  const normalised = body.replace(/\r\n?/g, '\n');
+  const [main, tail] = normalised.split(/—\s*Troubleshooting\s*—/i);
   const toItems = (s?: string) =>
     (s ?? '')
       .split(/\n{2,}/)

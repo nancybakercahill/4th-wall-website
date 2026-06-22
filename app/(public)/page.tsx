@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getPublishedProjects, getSettings, isSupabaseConfigured } from '../../lib/queries';
 import { CATEGORIES } from '../../lib/categories';
 import ProjectCard from '../../components/ProjectCard';
+import { renderRichText } from '../../components/RichText';
 
 export default async function HomePage() {
   const [projects, settings] = await Promise.all([getPublishedProjects(), getSettings()]);
@@ -46,7 +47,7 @@ export default async function HomePage() {
             {heroHeadline}
           </h1>
           <p className="mt-8 max-w-2xl text-xl font-medium text-white sm:text-2xl">
-            {heroIntro}
+            {renderRichText(heroIntro)}
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Link

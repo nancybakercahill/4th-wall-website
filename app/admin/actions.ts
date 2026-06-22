@@ -132,6 +132,46 @@ export async function saveSettings(formData: FormData) {
   redirect('/admin/home?saved=1');
 }
 
+// ---- Talks ----------------------------------------------------------------
+
+function talkFields(formData: FormData) {
+  return {
+    title: (str(formData.get('title')) ?? 'Untitled') as string,
+    url: str(formData.get('url')),
+    event: str(formData.get('event')),
+    talk_date: str(formData.get('talk_date')),
+    description: str(formData.get('description')),
+    sort_order: num(formData.get('sort_order')) ?? 0,
+  };
+}
+
+export async function createTalk(formData: FormData) {
+  const supabase = await createClient();
+  const { error } = await supabase.from('talks').insert(talkFields(formData));
+  if (error) throw new Error(error.message);
+  revalidatePath('/admin/talks');
+  revalidatePath('/talks');
+  redirect('/admin/talks?saved=1');
+}
+
+export async function updateTalk(id: string, formData: FormData) {
+  const supabase = await createClient();
+  const { error } = await supabase.from('talks').update(talkFields(formData)).eq('id', id);
+  if (error) throw new Error(error.message);
+  revalidatePath('/admin/talks');
+  revalidatePath('/talks');
+  redirect('/admin/talks?saved=1');
+}
+
+export async function deleteTalk(id: string) {
+  const supabase = await createClient();
+  const { error } = await supabase.from('talks').delete().eq('id', id);
+  if (error) throw new Error(error.message);
+  revalidatePath('/admin/talks');
+  revalidatePath('/talks');
+  redirect('/admin/talks?deleted=1');
+}
+
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();

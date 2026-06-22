@@ -21,7 +21,10 @@ export async function getPublishedProjects(category?: Category): Promise<Project
       .from('projects')
       .select('*')
       .eq('status', 'published')
+      // Pinned/featured first (low sort_order), then most-recent-first by year,
+      // then alphabetical as a final tiebreaker.
       .order('sort_order', { ascending: true })
+      .order('year', { ascending: false, nullsFirst: false })
       .order('title', { ascending: true });
     if (category) q = q.eq('category', category);
     const { data } = await q;
