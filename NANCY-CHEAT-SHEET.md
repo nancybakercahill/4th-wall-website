@@ -10,11 +10,41 @@ No code required — just a web browser.
 1. Go to your admin: **https://4thwallapp.org/admin**
    *(While we're still building, it's http://localhost:3000/admin on a computer running the site.)*
 2. Enter your **email + password**.
-3. You're in. Use the top menu: **Projects · Home & Hero · Pages**.
+3. You're in. Use the top menu: **Projects · Home & Hero · Pages · Talks · Press · News**.
 4. When done, click **Sign out** (top right) — or just close the tab.
 
 > Tip: save your login in your browser / password manager on both the PC and
 > the Mac so it's one click every time.
+
+---
+
+## Making changes AFTER the site is live (the big picture)
+
+Once the site is live at **4thwallapp.org**, there are **two kinds of changes**,
+and they work differently:
+
+### 1. Content changes — you do these yourself, instantly
+Text, projects, news, press, talks, images, the hero copy, About/How-To.
+
+- Go to **https://4thwallapp.org/admin** from **any** browser — your Mac, your
+  PC, even your phone. **No local setup, no code, nothing to install.**
+- Make your edit → **Save** → it's **live on the real site within seconds**
+  (refresh the page to see it).
+- This is 95% of what you'll ever do. You never need Claude or a computer
+  "running the site" for content — the live admin IS the tool.
+
+### 2. Design / feature changes — you ask Claude, then it auto-updates
+New sections, layout, colors, animations, anything structural.
+
+- Tell Claude what you want (on the Mac or PC). Claude edits the code and
+  **pushes** it.
+- Pushing to GitHub **automatically rebuilds and redeploys** the live site
+  (via Vercel) — it updates on its own in **~1–2 minutes**. You don't click
+  anything or "upload" anything.
+- So the flow is simply: **ask Claude → Claude pushes → site updates itself.**
+
+**Rule of thumb:** *words, projects, images, news* = you, in the admin, instant.
+*How it looks or works* = Claude, pushed, auto-deploys.
 
 ---
 

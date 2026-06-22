@@ -22,19 +22,27 @@ clearly.
 - `npm install` then `npm run dev` → http://localhost:3000
 - Requires `.env.local` (git-ignored): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
   (+ `DATABASE_URL` only for running migrations)
-- Migrations: `supabase/migrations/*.sql`, applied via `node scripts/run-sql.mjs <file>` with `DATABASE_URL` set
+- Migrations: `supabase/migrations/*.sql`, applied via `node scripts/run-sql.mjs <file>` with `DATABASE_URL` set.
+  ⚠️ The **direct** DB host (`db.<ref>.supabase.co`) is IPv6-only and unreachable from some machines.
+  Use the **session pooler**: `postgresql://postgres.<ref>:<pw>@aws-1-us-east-2.pooler.supabase.com:5432/postgres`
+  (password is in `.env.local`'s `DATABASE_URL`). App reads/writes go through PostgREST (HTTPS) and are unaffected.
 
 ## Architecture
-- **Public site**: `app/(public)/` — home, category pages (`public-art`/`guest-ar`/`coordinates`/`archive`),
-  `projects/[slug]`, `about`, `how-to-use`, `talks`, `press`
-- **Admin** (gated): `app/admin/` — Projects CRUD (+ image/video upload), **Home & Hero** editor,
-  **Pages** (About/How-To). Auth + session gating via **`proxy.ts`** (Next 16 renamed middleware→proxy)
-  + `lib/supabase/middleware.ts` `updateSession`
+- **Public site**: `app/(public)/` — home, category pages (`participatory-public-art`/`public-art`/
+  `guest-ar`/`coordinates`/`archive`), `projects/[slug]`, `about`, `how-to-use`, `talks`, `press`, `news`
+- **Admin** (gated): `app/admin/` — Projects CRUD (+ image/video upload), **Home & Hero**, **Pages**
+  (About/How-To), and add/edit/delete editors for **Talks**, **Press**, **News**. Auth + session gating
+  via **`proxy.ts`** (Next 16 renamed middleware→proxy) + `lib/supabase/middleware.ts` `updateSession`
 - **Data**: `lib/queries.ts` (read helpers; all guard `isSupabaseConfigured()` + try/catch),
   `lib/supabase/{server,client}.ts`
-- **Tables**: `projects`, `project_media`, `press`, `talks`, `pages`, `site_settings` (editable hero
-  copy + category blurbs). RLS: public reads published; authenticated (Nancy) writes.
-- **Categories**: `lib/categories.ts` (value/label/slug/blurb); blurbs overridable via `site_settings`
+- **Tables**: `projects`, `project_media`, `press`, `talks`, `news`, `pages`, `site_settings` (editable
+  hero copy + category blurbs). RLS: public reads published; authenticated (Nancy) writes.
+- **Categories**: `lib/categories.ts` (value/label/slug/blurb); blurbs overridable via `site_settings`.
+  Order = array order. Adding one needs: array entry + `Category` type + a route folder + the DB CHECK
+  (migration). Current: Participatory Public Art, Public Art, Guest AR, Coordinates, Archive.
+- **Rich text**: `components/RichText.tsx` `renderRichText(text, linkClass?)` turns `[label](url)` + bare
+  URLs into links. Used for hero intro, About, How-To, project description/credits, news body. Default
+  link = acid-green (`LINK_ACID`); pass `LINK_ON_LIGHT` on the white project pages.
 - **Media**: `lib/media.ts` `mediaUrl()` — passes through absolute URLs and `/public` paths, else Supabase storage
 
 ## Design system (cyberpunk editorial)
@@ -46,10 +54,11 @@ clearly.
 - **Press / Talks / How To Use / About**: black bg, acid-green bulleted links, display font
 - CENTO **project card** uses `public/brand/BEST_CENTO_April1.png`. Brand assets in `public/brand/`.
 
-## Status (as of 2026-06)
-Infrastructure + content imported (24 projects, ~99 press items, talks, pages) from 4thwallapp.org
-and nancybakercahill.com. Design pass largely done. **Nancy is doing a content-editing pass via
-`/admin`.** Then: full QA sweep → finalize design → deploy.
+## Status (2026-06-22)
+Content imported + actively edited by Nancy via `/admin` (now ~26 projects incl. Body Politic, FREE;
+~100 press items; talks; News section added). Rich-text links, acid-green link colour, Participatory
+Public Art category, News section, and Talks/Press/News admin editors all done & verified. **Nearing
+launch** — wrapping up content, then deploy. Nancy works from both Mac and PC (GitHub sync).
 
 ## Known gaps / TODO
 - **Legacy** + **Dimensional Drawings** need images (add via admin)

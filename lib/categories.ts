@@ -11,16 +11,16 @@ export interface CategoryMeta {
 
 export const CATEGORIES: CategoryMeta[] = [
   {
-    value: 'public_art',
-    label: 'Public Art',
-    slug: 'public-art',
-    blurb: 'Site-specific augmented reality artworks placed in public space.',
-  },
-  {
     value: 'participatory_public_art',
     label: 'Participatory Public Art',
     slug: 'participatory-public-art',
     blurb: 'Interactive, participatory AR public art shaped by its audience.',
+  },
+  {
+    value: 'public_art',
+    label: 'Public Art',
+    slug: 'public-art',
+    blurb: 'Site-specific augmented reality artworks placed in public space.',
   },
   {
     value: 'guest_ar',
