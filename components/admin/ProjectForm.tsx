@@ -105,7 +105,11 @@ export default function ProjectForm({ action, project }: Props) {
         </div>
         <div>
           <label className={labelCls}>Sort order</label>
-          <input name="sort_order" type="number" defaultValue={project?.sort_order ?? 0} className={input} />
+          <input name="sort_order" type="number" defaultValue={project?.sort_order ?? 100} className={input} />
+          <p className="mt-1 text-xs text-ink/45">
+            Leave at 100 to auto-place by year (newest first). Use a low number (1, 2, 3…) only to
+            pin a project to the very top.
+          </p>
         </div>
       </div>
 
