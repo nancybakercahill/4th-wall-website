@@ -1,5 +1,5 @@
 import { createClient } from './supabase/server';
-import type { Project, ProjectMedia, Press, Talk, Page, Category } from './types';
+import type { Project, ProjectMedia, Press, Talk, Page, Category, News } from './types';
 
 // True only when both public Supabase env vars are present. Lets the site build
 // and render placeholders before the backend is configured.
@@ -110,6 +110,22 @@ export async function getSettings(): Promise<Record<string, string>> {
     return map;
   } catch {
     return {};
+  }
+}
+
+export async function getNews(): Promise<News[]> {
+  if (!isSupabaseConfigured()) return [];
+  try {
+    const supabase = await db();
+    const { data } = await supabase
+      .from('news')
+      .select('*')
+      .order('published_on', { ascending: false, nullsFirst: false })
+      .order('sort_order', { ascending: true })
+      .order('created_at', { ascending: false });
+    return (data as News[]) ?? [];
+  } catch {
+    return [];
   }
 }
 

@@ -70,7 +70,7 @@ export default async function HomePage() {
 
       {/* Category browser */}
       <section className="container-page py-14">
-        <div className="grid grid-cols-1 border-l border-t border-ink sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 border-l border-t border-ink sm:grid-cols-2 lg:grid-cols-5">
           {CATEGORIES.map((c) => (
             <Link
               key={c.slug}

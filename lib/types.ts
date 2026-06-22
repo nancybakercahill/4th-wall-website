@@ -1,6 +1,11 @@
 // Shared types mirroring the Supabase schema (supabase/migrations/0001_init.sql).
 
-export type Category = 'public_art' | 'guest_ar' | 'coordinates' | 'archive';
+export type Category =
+  | 'public_art'
+  | 'participatory_public_art'
+  | 'guest_ar'
+  | 'coordinates'
+  | 'archive';
 export type Status = 'draft' | 'published';
 export type Visibility = 'private' | 'public';
 export type MediaKind = 'image' | 'video' | 'embed';
@@ -61,4 +66,14 @@ export interface Page {
   title: string;
   body: string | null;
   updated_at: string;
+}
+
+export interface News {
+  id: string;
+  title: string;
+  body: string | null;
+  url: string | null;
+  published_on: string | null;
+  sort_order: number;
+  created_at: string;
 }

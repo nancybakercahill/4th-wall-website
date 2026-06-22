@@ -172,6 +172,83 @@ export async function deleteTalk(id: string) {
   redirect('/admin/talks?deleted=1');
 }
 
+// ---- Press ----------------------------------------------------------------
+
+function pressFields(formData: FormData) {
+  return {
+    title: (str(formData.get('title')) ?? 'Untitled') as string,
+    outlet: str(formData.get('outlet')),
+    url: (str(formData.get('url')) ?? '') as string,
+    published_on: str(formData.get('published_on')),
+  };
+}
+
+export async function createPress(formData: FormData) {
+  const supabase = await createClient();
+  const { error } = await supabase.from('press').insert(pressFields(formData));
+  if (error) throw new Error(error.message);
+  revalidatePath('/admin/press');
+  revalidatePath('/press');
+  redirect('/admin/press?saved=1');
+}
+
+export async function updatePress(id: string, formData: FormData) {
+  const supabase = await createClient();
+  const { error } = await supabase.from('press').update(pressFields(formData)).eq('id', id);
+  if (error) throw new Error(error.message);
+  revalidatePath('/admin/press');
+  revalidatePath('/press');
+  redirect('/admin/press?saved=1');
+}
+
+export async function deletePress(id: string) {
+  const supabase = await createClient();
+  const { error } = await supabase.from('press').delete().eq('id', id);
+  if (error) throw new Error(error.message);
+  revalidatePath('/admin/press');
+  revalidatePath('/press');
+  redirect('/admin/press?deleted=1');
+}
+
+// ---- News -----------------------------------------------------------------
+
+function newsFields(formData: FormData) {
+  return {
+    title: (str(formData.get('title')) ?? 'Untitled') as string,
+    body: str(formData.get('body')),
+    url: str(formData.get('url')),
+    published_on: str(formData.get('published_on')),
+    sort_order: num(formData.get('sort_order')) ?? 0,
+  };
+}
+
+export async function createNews(formData: FormData) {
+  const supabase = await createClient();
+  const { error } = await supabase.from('news').insert(newsFields(formData));
+  if (error) throw new Error(error.message);
+  revalidatePath('/admin/news');
+  revalidatePath('/news');
+  redirect('/admin/news?saved=1');
+}
+
+export async function updateNews(id: string, formData: FormData) {
+  const supabase = await createClient();
+  const { error } = await supabase.from('news').update(newsFields(formData)).eq('id', id);
+  if (error) throw new Error(error.message);
+  revalidatePath('/admin/news');
+  revalidatePath('/news');
+  redirect('/admin/news?saved=1');
+}
+
+export async function deleteNews(id: string) {
+  const supabase = await createClient();
+  const { error } = await supabase.from('news').delete().eq('id', id);
+  if (error) throw new Error(error.message);
+  revalidatePath('/admin/news');
+  revalidatePath('/news');
+  redirect('/admin/news?deleted=1');
+}
+
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();

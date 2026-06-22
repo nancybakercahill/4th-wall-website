@@ -10,6 +10,7 @@ const SECONDARY = [
   { href: '/how-to-use', label: 'How To Use' },
   { href: '/talks', label: 'Talks' },
   { href: '/press', label: 'Press' },
+  { href: '/news', label: 'News' },
 ];
 
 export default function SiteHeader() {

@@ -17,6 +17,12 @@ export const CATEGORIES: CategoryMeta[] = [
     blurb: 'Site-specific augmented reality artworks placed in public space.',
   },
   {
+    value: 'participatory_public_art',
+    label: 'Participatory Public Art',
+    slug: 'participatory-public-art',
+    blurb: 'Interactive, participatory AR public art shaped by its audience.',
+  },
+  {
     value: 'guest_ar',
     label: 'Guest AR',
     slug: 'guest-ar',

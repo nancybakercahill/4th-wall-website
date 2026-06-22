@@ -40,6 +40,7 @@ export default function SiteFooter() {
             <li><Link href="/how-to-use" className="text-paper/80 hover:underline underline-offset-4">How To Use</Link></li>
             <li><Link href="/talks" className="text-paper/80 hover:underline underline-offset-4">Talks</Link></li>
             <li><Link href="/press" className="text-paper/80 hover:underline underline-offset-4">Press</Link></li>
+            <li><Link href="/news" className="text-paper/80 hover:underline underline-offset-4">News</Link></li>
           </ul>
         </div>
 
