@@ -83,21 +83,29 @@ const jsonLd = {
       '@id': `${SITE_URL}/#artist`,
       name: ARTIST_NAME,
       url: ARTIST_SITE,
-      jobTitle: 'Augmented Reality Artist',
+      jobTitle: ['Augmented Reality Artist', 'New Media Artist'],
       description:
-        'Nancy Baker Cahill is an augmented reality artist creating museum-quality AR artworks and participatory public art. She is the founder and creator of the 4th Wall app.',
+        'Nancy Baker Cahill is an American new media and augmented reality artist creating museum-quality AR artworks and participatory public art. She is the founder and creator of the 4th Wall app.',
       knowsAbout: [
         'Augmented Reality Art',
         'Museum-quality AR artworks',
-        'Public Art',
         'Participatory Public Art',
+        'Public Art',
+        'New Media Art',
+        'Immersive Art',
+        'Experiential Art',
+        'Virtual Reality',
         'XR',
         'Digital Art',
       ],
+      // Authoritative entity links — verified real. These tie this site to the
+      // canonical "Nancy Baker Cahill" entity across the web (Wikidata/Wikipedia/Whitney),
+      // which is what powers a Google knowledge panel.
       sameAs: [
         ARTIST_SITE,
-        'https://www.instagram.com/nancybakercahill/',
+        'https://www.wikidata.org/wiki/Q75452977',
         'https://en.wikipedia.org/wiki/Nancy_Baker_Cahill',
+        'https://whitney.org/artists/21063',
       ],
     },
     {
