@@ -64,11 +64,22 @@ admin gated). The GitHub repo was made **PUBLIC** to clear Vercel's free-plan "g
 member" deploy block (repo has no secrets; the publishable key is public by design + RLS-protected).
 Pushes now auto-deploy. Vercel team is "NBC's projects" (Hobby/free).
 
-**Remaining pre-launch (morning session 2026-06-23+):** point **4thwallapp.org** at Vercel (Vercel →
-project → Domains → add domain → set DNS where the domain is managed, likely Wix; KEEP Wix up until
-the new site answers at the domain & /admin works) → add **analytics** (Vercel Web Analytics + Speed
-Insights) → **basic SEO** (sitemap.xml, robots.txt, OG/Twitter cards) → only THEN cancel Wix.
-Nancy works from both Mac and PC (GitHub sync; pull before, push after).
+**LAUNCHED (2026-06-22): 4thwallapp.org is LIVE** on Vercel over HTTPS (apex redirects to www; SSL
+issued; nameservers moved to Vercel). **Analytics + SEO done:** `app/layout.tsx` rich metadata +
+OG/Twitter cards + JSON-LD (Person=Nancy "AR/new-media artist", WebSite, MobileApplication, plus
+per-project VisualArtwork), `app/sitemap.ts`, `app/robots.ts`, `lib/site.ts` (shared identity +
+keywords leading with her name + AR + "museum-quality AR artworks"). Person `sameAs` → real Wikidata
+(Q75452977), Wikipedia, Whitney, Instagram, LinkedIn. SEO playbook (Wikidata edits + matching schema
+for nancybakercahill.com) in `docs/SEO-profile-boost.md`.
+
+**Wix images migrated (2026-06-22):** old import left 116 images on `static.wixstatic.com` (8 covers +
+110 gallery). `scripts/migrate-wix-images.mjs` copied them all into the Supabase `media` bucket
+(`migrated/…`) + repointed the DB; **0 Wix references remain** — safe to cancel Wix. (Needs
+`SUPABASE_SERVICE_ROLE_KEY` in `.env.local`; `.com` file extensions are cosmetic, content-types OK.)
+
+**Remaining:** Nancy does a final visual click-through → **cancels Wix**. Then add Legacy +
+Dimensional Drawings images; hologram timing tweak. Nancy works from both Mac and PC (GitHub sync;
+pull before, push after).
 
 ## Known gaps / TODO
 - **Legacy** + **Dimensional Drawings** need images (add via admin)
