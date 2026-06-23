@@ -6,6 +6,12 @@ import { categoryByValue } from '../../../../lib/categories';
 import { mediaUrl } from '../../../../lib/media';
 import { renderRichText, LINK_ON_LIGHT } from '../../../../components/RichText';
 import Gallery, { type GalleryItem } from '../../../../components/Gallery';
+import { SITE_URL, ARTIST_NAME, ARTIST_SITE } from '../../../../lib/site';
+
+// Strip markdown links to their label and collapse whitespace, for clean meta/description text.
+const plainText = (s: string) =>
+  s.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/\s+/g, ' ').trim();
+const clip = (s: string, n: number) => (s.length > n ? `${s.slice(0, n - 1).trimEnd()}…` : s);
 
 export async function generateMetadata({
   params,
@@ -15,9 +21,35 @@ export async function generateMetadata({
   const { slug } = await params;
   const data = await getProjectBySlug(slug);
   if (!data) return { title: 'Project not found' };
+  const { project } = data;
+
+  const summary = project.description
+    ? clip(plainText(project.description), 200)
+    : project.subtitle ?? undefined;
+  const description = summary
+    ? `${summary}${/\.$|…$/.test(summary) ? '' : '.'} An AR artwork by ${ARTIST_NAME} on 4th Wall.`
+    : `${project.title} — an augmented reality artwork by ${ARTIST_NAME} on 4th Wall.`;
+
+  const cover = mediaUrl(project.cover_image_path);
+  const url = `${SITE_URL}/projects/${slug}`;
+
   return {
-    title: data.project.title,
-    description: data.project.subtitle ?? undefined,
+    title: project.title,
+    description,
+    alternates: { canonical: `/projects/${slug}` },
+    openGraph: {
+      type: 'article',
+      title: `${project.title} — 4th Wall`,
+      description,
+      url,
+      images: cover ? [{ url: cover, alt: project.title }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${project.title} — 4th Wall`,
+      description,
+      images: cover ? [cover] : undefined,
+    },
   };
 }
 
@@ -34,6 +66,25 @@ export default async function ProjectPage({
   const cat = categoryByValue(project.category);
   const cover = mediaUrl(project.cover_image_path);
 
+  // Per-artwork structured data: each project as a VisualArtwork created by Nancy, medium = AR.
+  const artworkLd = {
+    '@context': 'https://schema.org',
+    '@type': 'VisualArtwork',
+    name: project.title,
+    ...(project.subtitle ? { alternateName: project.subtitle } : {}),
+    artform: 'Augmented Reality',
+    artMedium: 'Augmented Reality',
+    creator: { '@type': 'Person', name: ARTIST_NAME, url: ARTIST_SITE },
+    ...(project.year ? { dateCreated: String(project.year) } : {}),
+    ...(cover ? { image: cover } : {}),
+    ...(project.location
+      ? { locationCreated: { '@type': 'Place', name: project.location } }
+      : {}),
+    ...(project.description ? { description: plainText(project.description) } : {}),
+    url: `${SITE_URL}/projects/${project.slug}`,
+    isPartOf: { '@type': 'MobileApplication', name: '4th Wall', url: SITE_URL },
+  };
+
   const galleryItems: GalleryItem[] = media
     .filter((m) => m.kind === 'image' || m.kind === 'video')
     .map((m) => ({
@@ -47,6 +98,10 @@ export default async function ProjectPage({
 
   return (
     <article className="container-page py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(artworkLd) }}
+      />
       <Link
         href={cat ? `/${cat.slug}` : '/'}
         className="font-display text-xs uppercase tracking-widest text-ink/50 hover:text-accent"
