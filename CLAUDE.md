@@ -57,8 +57,18 @@ clearly.
 ## Status (2026-06-22)
 Content imported + actively edited by Nancy via `/admin` (now ~26 projects incl. Body Politic, FREE;
 ~100 press items; talks; News section added). Rich-text links, acid-green link colour, Participatory
-Public Art category, News section, and Talks/Press/News admin editors all done & verified. **Nearing
-launch** — wrapping up content, then deploy. Nancy works from both Mac and PC (GitHub sync).
+Public Art category, News section, and Talks/Press/News admin editors all done & verified.
+
+**LIVE on Vercel: https://4th-wall-website.vercel.app** (verified working — content, all sections,
+admin gated). The GitHub repo was made **PUBLIC** to clear Vercel's free-plan "git author not a team
+member" deploy block (repo has no secrets; the publishable key is public by design + RLS-protected).
+Pushes now auto-deploy. Vercel team is "NBC's projects" (Hobby/free).
+
+**Remaining pre-launch (morning session 2026-06-23+):** point **4thwallapp.org** at Vercel (Vercel →
+project → Domains → add domain → set DNS where the domain is managed, likely Wix; KEEP Wix up until
+the new site answers at the domain & /admin works) → add **analytics** (Vercel Web Analytics + Speed
+Insights) → **basic SEO** (sitemap.xml, robots.txt, OG/Twitter cards) → only THEN cancel Wix.
+Nancy works from both Mac and PC (GitHub sync; pull before, push after).
 
 ## Known gaps / TODO
 - **Legacy** + **Dimensional Drawings** need images (add via admin)
