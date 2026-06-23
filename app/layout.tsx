@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: SITE_NAME,
-    title: `4th Wall — Museum-quality AR Artworks by Nancy Baker Cahill`,
+    title: `AR Public Art by Nancy Baker Cahill`,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
     images: [
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `4th Wall — AR Public Art by Nancy Baker Cahill`,
+    title: `AR Public Art by Nancy Baker Cahill`,
     description: SITE_DESCRIPTION,
     images: [OG_IMAGE],
   },

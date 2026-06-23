@@ -4,9 +4,10 @@ export const SITE_NAME = '4th Wall';
 export const ARTIST_NAME = 'Nancy Baker Cahill';
 export const ARTIST_SITE = 'https://nancybakercahill.com';
 
-// SEO-leading description: artist name + AR + museum-quality, up front and on purpose.
+// SEO-leading description: artist name + AR up front, with her signature terms
+// (participatory, collaborative, museum-quality) woven in naturally.
 export const SITE_DESCRIPTION =
-  'Nancy Baker Cahill is an augmented reality artist. 4th Wall is her free AR app presenting museum-quality AR artworks and public art in physical space worldwide.';
+  'Nancy Baker Cahill is an augmented reality and new media artist. 4th Wall is her free app for participatory, collaborative AR public art — museum-quality artworks placed in physical space worldwide.';
 
 // Keyword set prioritizing her name + AR, then museum-quality AR artworks.
 export const SITE_KEYWORDS = [
