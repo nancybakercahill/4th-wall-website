@@ -17,7 +17,6 @@ export const metadata: Metadata = {
   },
   description:
     '4th Wall is a free augmented reality app for public art by Nancy Baker Cahill, bringing digital artworks into physical space.',
-  other: { 'x-deploy-check': 'public-ok' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
