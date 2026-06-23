@@ -48,7 +48,6 @@ export default function SiteFooter() {
           <p className="eyebrow text-paper/40">Get the app</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li><span className="text-paper/80">iOS &amp; Android</span></li>
-            <li><Link href="/admin" className="text-paper/40 hover:underline underline-offset-4">Admin</Link></li>
           </ul>
         </div>
       </div>
