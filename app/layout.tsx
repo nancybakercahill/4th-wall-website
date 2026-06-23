@@ -106,6 +106,8 @@ const jsonLd = {
         'https://www.wikidata.org/wiki/Q75452977',
         'https://en.wikipedia.org/wiki/Nancy_Baker_Cahill',
         'https://whitney.org/artists/21063',
+        'https://www.instagram.com/nancybakercahill/',
+        'https://www.linkedin.com/in/nancy-baker-cahill-4773722b/',
       ],
     },
     {
