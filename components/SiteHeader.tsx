@@ -11,6 +11,7 @@ const SECONDARY = [
   { href: '/talks', label: 'Talks' },
   { href: '/press', label: 'Press' },
   { href: '/news', label: 'News' },
+  { href: '/privacy', label: 'Privacy Policy' },
 ];
 
 export default function SiteHeader() {

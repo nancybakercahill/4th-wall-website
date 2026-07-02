@@ -5,6 +5,7 @@ import { savePage } from '../actions';
 const EDITABLE = [
   { key: 'about', label: 'About' },
   { key: 'how-to-use', label: 'How To Use' },
+  { key: 'privacy', label: 'Privacy Policy' },
 ];
 
 const input =
@@ -24,7 +25,7 @@ export default async function AdminPagesPage({
   return (
     <div className="max-w-3xl">
       <h1 className="text-2xl font-semibold tracking-tight">Pages</h1>
-      <p className="mt-2 text-sm text-ink/60">Edit the text on your About and How To Use pages.</p>
+      <p className="mt-2 text-sm text-ink/60">Edit the text on your About, How To Use, and Privacy Policy pages.</p>
 
       {saved && (
         <p className="mt-4 rounded-md bg-green-100 px-4 py-2 text-sm text-green-800">Saved.</p>
